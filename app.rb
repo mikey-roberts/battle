@@ -1,25 +1,21 @@
-require 'sinatra'
-require "sinatra/reloader" if development?
+require 'sinatra/base'
+require 'sinatra/reloader'
 
-get '/' do
-  
-end
+class Battle < Sinatra::Base
+  configure :development do
+    register Sinatra::Reloader
+  end
 
-get '/secret' do
-  'This is a secret page'
-end
+  get '/' do
+    erb :index
+  end
 
-get '/random-cat' do
-  @name = ["Amigo", "Misty", "Almond"].sample
-  erb(:index)
-end
+  post '/names' do
+    @player_1_name = params[:player_1_name]
+    @player_2_name = params[:player_2_name]
+    erb :play
+  end
 
-get '/cat-form' do
-  erb :cat_form
-end
-
-post '/named-cat' do
-  p params
-  @name = params[:name]
-  erb(:index)
+  # start the server if ruby file executed directly
+  run! if app_file == $0
 end
