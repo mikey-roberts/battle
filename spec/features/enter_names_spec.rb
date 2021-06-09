@@ -1,9 +1,6 @@
 feature 'Enter names' do
   scenario 'Expect player to fill out their name' do
-    visit('/')
-    fill_in :player_1_name, with: 'John'
-    fill_in :player_2_name, with: 'Mitch'
-    click_button 'Submit'
+    sign_in_and_play
     save_and_open_page
     # will save the web page and open the browser to display it
 
